@@ -1,0 +1,28 @@
+---
+# tasks file for apache
+
+- name: install apache
+  yum:
+
+    name: httpd
+    state: installed
+
+- name: copy the index file
+
+  copy:
+    src: index.html  
+    dest: /var/www/index.html
+
+- name: start apache
+
+  service:
+    name: httpd
+    state: started
+
+- name: reconfig apache
+  template:
+    src: httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+  notify: 
+
+    - restart apache 

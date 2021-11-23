@@ -5,15 +5,16 @@
   yum:
     name: tomcat
     state: installed
-
+    
 - name: Install additional packages
   yum:
     name: "{{ item }}"
     state: installed
-  with_items:
+  loop:
     - tomcat-webapps
     - tomcat-admin-webapps 
     - tomcat-docs-webapp
+
 
 - name: copy tomcat-users.xml
   copy:
